@@ -1,8 +1,8 @@
 firebase.initializeApp(config);
 var fbRef = firebase.database();
 
-document.addEventListener("DOMContentLoaded",ready);
-
+// document.addEventListener("DOMContentLoaded",ready);  //only works when JS file is in the html doc
+window.addEventListener("load",ready);  //use this when 'importing' to other js file
 function ready(){
     //var shorthand to access DOM elements
 var userName = document.getElementById("username");
