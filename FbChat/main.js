@@ -5,31 +5,61 @@ var fbRef = firebase.database();
 window.addEventListener("load",ready);  //use this when 'importing' to other js file
 function ready(){
     var username = null;
-    var loginButton = document.querySelector('#login');
+    var newLogin = document.querySelector('#newLogin');
     var email = document.getElementById("email");
     var password=document.getElementById("password");
+    var login = document.getElementById("login");
+    var logout = document.getElementById("logout");
     // var userName = document.getElementById("username"); dont need if we are tryign oauth
     var msgInput = document.getElementById("message");
     var submitBtn = document.getElementById("submit");
 
     submitBtn.style.display = "none";
     msgInput.style.display = "none";
+
+    logout.addEventListener("click",function(){
+        firebase.auth().signOut().then(function(){
+            document.getElementById("results").innerHTML="";
+            msgInput.style.display ="none";
+            submitBtn.style.display="none";
+        },function(error){
+            console.log("error");
+        })
+    })
     //event listerner got login
-    loginButton.addEventListener("click",function(){
-        // firebase.auth().signInWithEmailAndPassword(email, password)
-        //     .catch(function(error) {
-        //     // Handle Errors here.
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     if (errorCode === 'auth/wrong-password') {
-        //         alert('Wrong password.');
-        //     } else {
-        //         alert(errorMessage);
-        //     }
-        //     console.log(error);
-        // });
+    login.addEventListener("click",function(){
         var emails=email.value;
         var passwords=password.value;
+        firebase.auth().signInWithEmailAndPassword(emails, passwords)
+            .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log('hello',user.email);
+                // After creating account, you are automatically logged in from FB and this is where magic should happen
+                username=user.email;
+                login.textContent="Logged in as "+username;
+                login.disabled = true;
+                submitBtn.style.display = "block";
+                msgInput.style.display = "block";
+                startListening();
+            }
+        });
+        
+    })
+    newLogin.addEventListener("click",function(){
+        var emails=email.value;
+        var passwords=password.value;
+        
         firebase.auth().createUserWithEmailAndPassword(emails,passwords)
             .catch(function(error) {
             // Handle Errors here.
@@ -47,8 +77,8 @@ function ready(){
                 console.log('hello',user.email);
                 // After creating account, you are automatically logged in from FB and this is where magic should happen
                 username=user.email;
-                loginButton.textContent="Logged in as "+username;
-                loginButton.disabled = true;
+                newLogin.textContent="Logged in as "+username;
+                newLogin.disabled = true;
                 submitBtn.style.display = "block";
                 msgInput.style.display = "block";
                 startListening();
@@ -60,11 +90,11 @@ function ready(){
         // var sentFrom = userName.value; //only if we let them pick names
         var sentFrom = username;
         var sentMsg = msgInput.value;
-        //send it to firebase
-        // Fb.set(sentFrom + ": "+sentMsg);
+        var date = new Date();
         var newMsgRef = fbRef.ref('messages').push();
         newMsgRef.set({
             "username":sentFrom,
+            "date": date.toLocaleTimeString(),
             "message":sentMsg
         })
         msgInput.value="";
@@ -73,7 +103,6 @@ function ready(){
 function startListening(){
     fbRef.ref('messages').on('value',function(snap){
         //listens when the value in db changes and updates the dom
-        //save obj from db
         var msg = snap.val();
         console.log('this is your snap', msg);
         
@@ -83,16 +112,10 @@ function startListening(){
             if(msg.hasOwnProperty(x)){
                 console.log('close',msg[x]);
                 var msgUsername = document.createElement("p");
-                msgUsername.innerText = msg[x].username+": "+msg[x].message;
-
-                // var msgText = document.createElement("p");
-                // msgText.textContent = msg[x].message;
-
-                // msgUsername.appendChild(msgText);
+                msgUsername.innerText = msg[x].username+" ("+msg[x].date+") "+ ": "+msg[x].message;
 
                 var msgContainer = document.createElement("div");
                 msgContainer.appendChild(msgUsername);
-                // msgContainer.appendChild(msgText);
 
                 //attach it to dom
                 document.getElementById("results").appendChild(msgContainer);
