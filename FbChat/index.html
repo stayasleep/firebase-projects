@@ -3,6 +3,10 @@
 <html>
     <meta charset="UTF-8">
     <title>Stein Chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
     <!--<script src="main.js"></script>-->
@@ -10,15 +14,25 @@
 <head>
 </head>
 <body>
-    <input id="email" type="email" placeholder="email">
-    <input id="password" type="password" placeholder="enter a password">
-    <button id="login" type="button">Login</button>
-    <button id="newLogin">Sign Up</button><br/>
-    <button id="logout" type="button">Log Out</button>
-    <!--<input id="username" type="text" placeholder="Name">-->
-    <input id="message" type="text" placeholder="Enter a message...">
-    <button type="button" id="submit">Send</button>
-    <div id="results"></div>
-
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col col-sm-3">
+                <!--users online go here or something similar-->
+            </div>
+            <div class="col col-sm-9">
+                <input id="email" type="email" placeholder="email">
+                <input id="password" type="password" placeholder="enter a password">
+                <button id="login" type="button">Login</button>
+                <button id="newLogin">Sign Up</button><br/>
+                <button id="logout" type="button">Log Out</button>
+                <div id="results"></div>
+                <div class="input-group">
+                    <input id="message" class="form-control" type="text" placeholder="Enter a message...">
+                    <!--<span class="input-group-addon"><input type="button" id="submit" aria-label="Button for the following text input"></span>-->
+                    <span class="input-group-btn"><button type="button" id="submit" class="btn btn-secondary">Send</button></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
