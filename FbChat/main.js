@@ -238,6 +238,8 @@ function userModal(){
     modal.className+=" show";
     modal.style.display="block";
     modal.style.backgroundColor="rgba(0,0,0,0.4)";
+    let emailInput = document.getElementById("email").focus();
+
 }
 function closeModal(event){
     let modal = document.getElementById("userModal");
