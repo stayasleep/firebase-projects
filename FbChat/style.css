@@ -1,0 +1,25 @@
+body{
+    height: 100vh;
+}
+
+.rightCol{
+    border-left: 2px solid black;
+    height: 100%;
+}
+
+#results{
+    overflow-y: scroll;
+    background: lightgray;
+    height: 75%;
+    position: fixed;
+    bottom: 50px;
+    word-wrap: break-word;
+    width: 70%;
+
+}
+
+.input-group{
+    position: fixed;
+    width: 70%;
+    bottom: 0;
+}

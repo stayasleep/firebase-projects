@@ -16,19 +16,48 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col col-sm-3">
-                <!--users online go here or something similar-->
+            <div class="col col-sm-12">
+                <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-sm">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Stein Chat</a>
+                    <div class="collapse navbar-collapse" id="navbarColor01">
+                        <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com" target="_blank">View Code</a>
+                        </li>
+                        </ul>
+                         <form class="form-inline">
+                            <button class="btn btn-outline-info" id="logout" type="button">Log Out</button>
+                        </form>
+                    </div>
+                </nav>
             </div>
-            <div class="col col-sm-9">
+            <div class="col col-sm-3">
+                <div class="onlineContainer">
+                    <h2>Currently Online:</h2>
+                    <div class="online"></div>
+                </div>
+            </div>
+            <div class="rightCol col col-sm-9">
+                <!--<button type="button" data-toggle="modal" data-target="#userModal" class="btn btn-primary newReg">New User</button>
+                <button type="button" data-toggle="modal" data-target="#userModal" class="btn btn-primary popUp">Returning User</button>-->
                 <input id="email" type="email" placeholder="email">
-                <input id="password" type="password" placeholder="enter a password">
+                <input id="password" type="password" placeholder="enter a password">-->
                 <button id="login" type="button">Login</button>
                 <button id="newLogin">Sign Up</button><br/>
-                <button id="logout" type="button">Log Out</button>
-                <div id="results"></div>
+                <div class="chat">
+                    <div id="results"></div>
+                </div>
                 <div class="input-group">
                     <input id="message" class="form-control" type="text" placeholder="Enter a message...">
-                    <!--<span class="input-group-addon"><input type="button" id="submit" aria-label="Button for the following text input"></span>-->
                     <span class="input-group-btn"><button type="button" id="submit" class="btn btn-secondary">Send</button></span>
                 </div>
             </div>
