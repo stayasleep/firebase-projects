@@ -6,7 +6,10 @@ window.addEventListener("load",ready);  //use this when 'importing' to other js 
 function ready(){
     document.getElementById("logout").style.display="none";
     document.getElementsByClassName("onlineContainer")[0].style.display="none";
-    // makeModal();
+    document.getElementsByClassName("chat")[0].style.display="none";
+    makeModal();
+    window.addEventListener("click",closeModal);
+    document.getElementsByClassName("newReg")[0].addEventListener("click",userModal);
     // document.getElementsByClassName("popUp")[0].addEventListener("click",userModal("login"));
     // document.getElementsByClassName("newReg")[0].addEventListener("click",userModal("newLogin"));
     var username = null;
@@ -30,6 +33,7 @@ function ready(){
         noLongerOnline();
         firebase.auth().signOut().then(function(){
             document.getElementById("results").innerHTML="";
+            document.getElementsByClassName("chat")[0].style.display="none"
             msgInput.style.display ="none";
             submitBtn.style.display="none";
             document.getElementsByClassName("onlineContainer")[0].style.display="none";
@@ -63,6 +67,7 @@ function ready(){
                 login.textContent="Logged in as "+username;
                 login.disabled = true;
                 document.getElementsByClassName("onlineContainer")[0].style.display="block";
+                document.getElementsByClassName("chat")[0].style.display="block";
                 submitBtn.style.display = "block";
                 msgInput.style.display = "block";
                 document.getElementById("logout").style.display="block";
@@ -95,6 +100,7 @@ function ready(){
                 newLogin.textContent="Logged in as "+username;
                 newLogin.disabled = true;
                 document.getElementsByClassName("onlineContainer")[0].style.display="block";
+                document.getElementsByClassName("chat")[0].style.display="block";
                 submitBtn.style.display = "block";
                 msgInput.style.display = "block";
                 startListening();
@@ -142,92 +148,104 @@ function startListening(){
     })
     whoIsOnline();
 }
-// function makeModal(){
-// // function userModal(functionID){
-//     let modalFade = document.createElement("div");
-//     modalFade.className="modal fade";
-//     modalFade.id="userModal";
-//     modalFade.setAttribute("tabindex","-1");
+function makeModal(){
+// function userModal(functionID){
+    let modalFade = document.createElement("div");
+    modalFade.className="modal fade";
+    modalFade.id="userModal";
+    modalFade.setAttribute("tabindex","-1");
+    modalFade.style.display="none";
 
-//     let modalDialog = document.createElement("div");
-//     modalDialog.className="modal-dialog";
-//     modalDialog.setAttribute("role","document");
+    let modalDialog = document.createElement("div");
+    modalDialog.className="modal-dialog";
+    modalDialog.setAttribute("role","document");
 
-//     let modalContent  = document.createElement("div");
-//     modalContent.className="modal-content";
-//     let modalHeader = document.createElement("div");
-//     modalHeader.className="modal-header";
+    let modalContent  = document.createElement("div");
+    modalContent.className="modal-content";
+    let modalHeader = document.createElement("div");
+    modalHeader.className="modal-header";
 
-//     let modalTitle =document.createElement("h5");
-//     modalTitle.className="modal-title";
-//     modalTitle.innerText="Enter Info Below";
+    let modalTitle =document.createElement("h5");
+    modalTitle.className="modal-title";
+    modalTitle.innerText="Enter Info Below";
 
-//     let button = document.createElement("button");
-//     button.className="close";
-//     button.setAttribute("data-dismiss","modal");
-//     button.setAttribute("aria-label","Close");
+    let button = document.createElement("button");
+    button.className="close";
+    button.setAttribute("data-dismiss","modal");
+    button.setAttribute("aria-label","Close");
+    button.addEventListener("click",function(){
+        modalFade.classList.remove("show");
+        modalFade.style.display="none";
+    })
 
-//     let spanClose = document.createElement("span");
-//     spanClose.setAttribute("aria-hidden","true");
-//     spanClose.innerHTML="&times;";
+    let spanClose = document.createElement("span");
+    spanClose.setAttribute("aria-hidden","true");
+    spanClose.innerHTML="&times;";
 
-//     let modalBody = document.createElement("div");
-//     modalBody.className="modal-body form-group";
-//     // modalBody.innerText="Enter information below";
+    let modalBody = document.createElement("div");
+    modalBody.className="modal-body form-group";
 
-//     let emailInput = document.createElement("input");
-//     emailInput.id="email";
-//     emailInput.className="form-control"
-//     emailInput.setAttribute("type","email");
-//     emailInput.setAttribute("placeholder","Enter Email");
+    let emailInput = document.createElement("input");
+    emailInput.id="email";
+    emailInput.className="form-control"
+    emailInput.setAttribute("type","email");
+    emailInput.setAttribute("placeholder","Enter Email");
 
-//     let passInput = document.createElement("input");
-//     passInput.id="password";
-//     passInput.className="form-control"
-//     passInput.setAttribute("type","password");
-//     passInput.setAttribute("placeholder","Enter a password");
+    let passInput = document.createElement("input");
+    passInput.id="password";
+    passInput.className="form-control"
+    passInput.setAttribute("type","password");
+    passInput.setAttribute("placeholder","Enter a password");
 
-//     let modalFooter = document.createElement("div");
-//     modalFooter.className="modal-footer";
+    let modalFooter = document.createElement("div");
+    modalFooter.className="modal-footer";
 
-//     let btnSubmit = document.createElement("button");
-//     btnSubmit.setAttribute("type","button");
-//     btnSubmit.className="formSub btn btn-primary";
-//     // btnSubmit.id=functionID;
-//     btnSubmit.setAttribute("data-dismiss","modal");
-//     btnSubmit.innerHTML="Submit";
+    let btnSubmit = document.createElement("button");
+    btnSubmit.setAttribute("type","button");
+    btnSubmit.className="formSub btn btn-primary";
+    // btnSubmit.id=functionID;
+    btnSubmit.setAttribute("data-dismiss","modal");
+    btnSubmit.innerHTML="Submit";
 
-//     let btnCancel = document.createElement("button");
-//     btnCancel.setAttribute("type","button");
-//     btnCancel.className = "closeModal btn btn-secondary";
-//     btnCancel.setAttribute("data-dismiss","modal");
-//     btnCancel.innerText="Close";
-//     btnCancel.addEventListener("click",function(){
-//         modalFade.classList.remove("show");
-//         modalFade.style.display="none";
-//         // modalFade.classList.remove("modal-backdrop");
-//     })
+    let btnCancel = document.createElement("button");
+    btnCancel.setAttribute("type","button");
+    btnCancel.className = "closeModal btn btn-secondary";
+    btnCancel.setAttribute("data-dismiss","modal");
+    btnCancel.innerText="Close";
+    btnCancel.addEventListener("click",function(){
+        modalFade.classList.remove("show");
+        modalFade.style.display="none";
+        // modalFade.classList.remove("modal-backdrop");
+    })
 
-//     modalFooter.appendChild(btnSubmit);
-//     modalFooter.appendChild(btnCancel);
-//     modalBody.appendChild(emailInput);
-//     modalBody.appendChild(passInput);
-//     button.appendChild(spanClose);
-//     modalHeader.appendChild(modalTitle);
-//     modalHeader.appendChild(button);
-//     modalContent.appendChild(modalHeader);
-//     modalContent.appendChild(modalBody);
-//     modalContent.appendChild(modalFooter);
-//     modalDialog.appendChild(modalContent);
-//     modalFade.appendChild(modalDialog);
+    modalFooter.appendChild(btnSubmit);
+    modalFooter.appendChild(btnCancel);
+    modalBody.appendChild(emailInput);
+    modalBody.appendChild(passInput);
+    button.appendChild(spanClose);
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(button);
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modalContent.appendChild(modalFooter);
+    modalDialog.appendChild(modalContent);
+    modalFade.appendChild(modalDialog);
 
-//     // document.getElementsByTagName('body')[0].appendChild(modalFade);
-
-//     // let modal=document.getElementById('userModal')
-//     // modal.className+=' show';
-//     // modal.style.display="block";
-    
-// }
+    document.getElementsByTagName('body')[0].appendChild(modalFade); 
+}
+function userModal(){
+    let modal=document.getElementById("userModal");
+    modal.className+=" show";
+    modal.style.display="block";
+    modal.style.backgroundColor="rgba(0,0,0,0.4)";
+}
+function closeModal(event){
+    let modal = document.getElementById("userModal");
+    if(event.target === modal){
+        modal.style.display="none";
+        modal.classList.remove("show");
+    }
+}
 // function userModal(functionID){
 //     console.log("who clicked me",functionID);
 //     // let userModal = document.getElementById("userModal");
