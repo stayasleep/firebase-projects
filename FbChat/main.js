@@ -10,15 +10,15 @@ function ready(){
     makeModal();
     window.addEventListener("click",closeModal);
     document.getElementsByClassName("newReg")[0].addEventListener("click",userModal);
+    document.getElementsByClassName("returning")[0].addEventListener("click",userModal);
     // document.getElementsByClassName("popUp")[0].addEventListener("click",userModal("login"));
     // document.getElementsByClassName("newReg")[0].addEventListener("click",userModal("newLogin"));
     var username = null;
-    var newLogin = document.querySelector('#newLogin');
+    var newLogin = document.querySelector('newLogin');
     var email = document.getElementById("email");
     var password=document.getElementById("password");
     var login = document.getElementById("login");
     var logout = document.getElementById("logout");
-    // var userName = document.getElementById("username"); dont need if we are tryign oauth
     var msgInput = document.getElementById("message");
     var submitBtn = document.getElementById("submit");
 
@@ -43,70 +43,70 @@ function ready(){
         })
     })
     // event listerner got login
-    login.addEventListener("click",function(){
-        var emails=email.value;
-        var passwords=password.value;
-        firebase.auth().signInWithEmailAndPassword(emails, passwords)
-            .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-        });
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // After creating account, you are automatically logged in from FB and this is where magic should happen
-                username=user.email;
-                addUsersOnline(username);
+    // login.addEventListener("click",function(){
+    //     var emails=email.value;
+    //     var passwords=password.value;
+    //     firebase.auth().signInWithEmailAndPassword(emails, passwords)
+    //         .catch(function(error) {
+    //         // Handle Errors here.
+    //         var errorCode = error.code;
+    //         var errorMessage = error.message;
+    //         if (errorCode === 'auth/wrong-password') {
+    //             alert('Wrong password.');
+    //         } else {
+    //             alert(errorMessage);
+    //         }
+    //         console.log(error);
+    //     });
+        // firebase.auth().onAuthStateChanged(function(user) {
+        //     if (user) {
+        //         // After creating account, you are automatically logged in from FB and this is where magic should happen
+        //         username=user.email;
+        //         addUsersOnline(username);
 
-                login.textContent="Logged in as "+username;
-                login.disabled = true;
-                document.getElementsByClassName("onlineContainer")[0].style.display="block";
-                document.getElementsByClassName("chat")[0].style.display="block";
-                submitBtn.style.display = "block";
-                msgInput.style.display = "block";
-                document.getElementById("logout").style.display="block";
-                startListening();
-            }
-        });
+        //         login.textContent="Logged in as "+username;
+        //         login.disabled = true;
+        //         document.getElementsByClassName("onlineContainer")[0].style.display="block";
+        //         document.getElementsByClassName("chat")[0].style.display="block";
+        //         submitBtn.style.display = "block";
+        //         msgInput.style.display = "block";
+        //         document.getElementById("logout").style.display="block";
+        //         startListening();
+        //     }
+        // });
         
-    })
-    newLogin.addEventListener("click",function(){
-        var emails=email.value;
-        var passwords=password.value;
+    // })
+    // newLogin.addEventListener("click",function(){
+    //     var emails=email.value;
+    //     var passwords=password.value;
         
-        firebase.auth().createUserWithEmailAndPassword(emails,passwords)
-            .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-        });
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                console.log('hello',user.email);
-                // After creating account, you are automatically logged in from FB and this is where magic should happen
-                username=user.email;
-                newLogin.textContent="Logged in as "+username;
-                newLogin.disabled = true;
-                document.getElementsByClassName("onlineContainer")[0].style.display="block";
-                document.getElementsByClassName("chat")[0].style.display="block";
-                submitBtn.style.display = "block";
-                msgInput.style.display = "block";
-                startListening();
-            }
-        });
-    })
+    //     firebase.auth().createUserWithEmailAndPassword(emails,passwords)
+    //         .catch(function(error) {
+    //         // Handle Errors here.
+    //         var errorCode = error.code;
+    //         var errorMessage = error.message;
+    //         if (errorCode == 'auth/weak-password') {
+    //             alert('The password is too weak.');
+    //         } else {
+    //             alert(errorMessage);
+    //         }
+    //         console.log(error);
+    //     });
+    //     firebase.auth().onAuthStateChanged(function(user) {
+    //         if (user) {
+    //             console.log('hello',user.email);
+    //             // After creating account, you are automatically logged in from FB and this is where magic should happen
+    //             username=user.email;
+    //             newLogin.textContent="Logged in as "+username;
+    //             newLogin.disabled = true;
+    //             document.getElementsByClassName("onlineContainer")[0].style.display="block";
+    //             document.getElementsByClassName("chat")[0].style.display="block";
+    //             submitBtn.style.display = "block";
+    //             msgInput.style.display = "block";
+    //             startListening();
+    //         }
+    //     });
+    // })
     //apply event listerners
     submitBtn.addEventListener("click",function(){
         // var sentFrom = userName.value; //only if we let them pick names
@@ -206,6 +206,10 @@ function makeModal(){
     // btnSubmit.id=functionID;
     btnSubmit.setAttribute("data-dismiss","modal");
     btnSubmit.innerHTML="Submit";
+    btnSubmit.addEventListener('click',function(){
+        modalFade.classList.remove("show");
+        modalFade.style.display="none";
+    })
 
     let btnCancel = document.createElement("button");
     btnCancel.setAttribute("type","button");
@@ -215,7 +219,6 @@ function makeModal(){
     btnCancel.addEventListener("click",function(){
         modalFade.classList.remove("show");
         modalFade.style.display="none";
-        // modalFade.classList.remove("modal-backdrop");
     })
 
     modalFooter.appendChild(btnSubmit);
@@ -234,6 +237,17 @@ function makeModal(){
     document.getElementsByTagName('body')[0].appendChild(modalFade); 
 }
 function userModal(){
+    let userStat = event.target.attributes[1].value;
+    console.log('ev',event.target.attributes[1].value); //this will allow one modal, several buttons, interchangeable content
+    document.getElementsByClassName("formSub")[0].id=userStat;
+    document.getElementById(userStat).addEventListener('click',function(){
+        if(userStat==="newLogin"){
+            signUp();
+        }else{
+            returningUser();
+        }
+
+    });
     let modal=document.getElementById("userModal");
     modal.className+=" show";
     modal.style.display="block";
@@ -248,79 +262,70 @@ function closeModal(event){
         modal.classList.remove("show");
     }
 }
-// function userModal(functionID){
-//     console.log("who clicked me",functionID);
-//     // let userModal = document.getElementById("userModal");
-//     // document.getElementsByTagName('body')[0].appendChild(userModal);
 
-//     // document.getElementsByClassName("formSub")[0].id=functionID;
-//     // document.getElementById(functionID).addEventListener("click",)
-
-//     // let modal=document.getElementById('userModal')
-//     // modal.className+=' show';
-//     // modal.style.display="block";
-// }
-// function signUp(){
-//     //  newLogin.addEventListener("click",function(){
-//         var emails=document.getElementById("email").value;
-//         var passwords=document.getElementById("password").value;
+function signUp(){
+    //  newLogin.addEventListener("click",function(){
+        var emails=document.getElementById("email").value;
+        var passwords=document.getElementById("password").value;
         
-//         firebase.auth().createUserWithEmailAndPassword(emails,passwords)
-//             .catch(function(error) {
-//             // Handle Errors here.
-//             var errorCode = error.code;
-//             var errorMessage = error.message;
-//             if (errorCode == 'auth/weak-password') {
-//                 alert('The password is too weak.');
-//             } else {
-//                 alert(errorMessage);
-//             }
-//             console.log(error);
-//         });
-//         firebase.auth().onAuthStateChanged(function(user) {
-//             if (user) {
-//                 console.log('hello',user.email);
-//                 // After creating account, you are automatically logged in from FB and this is where magic should happen
-//                 username=user.email;
-//                 newLogin.textContent="Logged in as "+username;
-//                 newLogin.disabled = true;
-//                 submitBtn.style.display = "block";
-//                 msgInput.style.display = "block";
-//                 startListening();
-//             }
-//         });
-//     // })
-// }
-// function returningUser(){
-// // login.addEventListener("click",function(){
-//         var emails=email.value;
-//         var passwords=password.value;
-//         firebase.auth().signInWithEmailAndPassword(emails, passwords)
-//             .catch(function(error) {
-//             // Handle Errors here.
-//             var errorCode = error.code;
-//             var errorMessage = error.message;
-//             if (errorCode === 'auth/wrong-password') {
-//                 alert('Wrong password.');
-//             } else {
-//                 alert(errorMessage);
-//             }
-//             console.log(error);
-//         });
-//         firebase.auth().onAuthStateChanged(function(user) {
-//             if (user) {
-//                 console.log('hello',user.email);
-//                 // After creating account, you are automatically logged in from FB and this is where magic should happen
-//                 username=user.email;
-//                 login.textContent="Logged in as "+username;
-//                 login.disabled = true;
-//                 submitBtn.style.display = "block";
-//                 msgInput.style.display = "block";
-//                 startListening();
-//             }
-//         });
-//     // })
-// }
+        firebase.auth().createUserWithEmailAndPassword(emails,passwords)
+            .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode == 'auth/weak-password') {
+                alert('The password is too weak.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                console.log('hello',user.email);
+                // After creating account, you are automatically logged in from FB and this is where magic should happen
+                username=user.email;
+                newLogin.textContent="Logged in as "+username;
+                newLogin.disabled = true;
+                submitBtn.style.display = "block";
+                msgInput.style.display = "block";
+                startListening();
+            }
+        });
+    // })
+}
+function returningUser(){
+        var emails=email.value;
+        var passwords=password.value;
+        var msgInput = document.getElementById("message");
+        var submitBtn = document.getElementById("submit");
+        firebase.auth().signInWithEmailAndPassword(emails, passwords)
+            .catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+        });
+         firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // After creating account, you are automatically logged in from FB and this is where magic should happen
+                username=user.email;
+                addUsersOnline(username);
+
+                document.getElementsByClassName("onlineContainer")[0].style.display="block";
+                document.getElementsByClassName("chat")[0].style.display="block";
+                submitBtn.style.display = "block";
+                msgInput.style.display = "block";
+                document.getElementById("logout").style.display="block";
+                startListening();
+            }
+        });
+}
 
 function addUsersOnline(name){
     let newMsgRef = fbRef.ref('active').push();
