@@ -1,0 +1,47 @@
+body{
+    height: 100vh;
+}
+
+.rightCol{
+    border-left: 2px solid black;
+    height: 100%;
+}
+
+#results{
+    overflow-y: scroll;
+    background: lightgray;
+    height: 75%;
+    position: fixed;
+    bottom: 50px;
+    word-wrap: break-word;
+    width: 70%;
+
+}
+
+.input-group{
+    position: fixed;
+    width: 70%;
+    bottom: 0;
+}
+
+.newReg{
+    border-color: black;
+    color: black;
+    font-weight: 700;
+}
+.newReg:hover{
+    border-color: black;
+    background-color: black;
+}
+
+.returning{
+    color: white;
+    background: black;
+    border-color: black;
+    font-weight: 700;
+}
+.returning:hover{
+    background: white;
+    color: black;
+    border-color: black;
+}
