@@ -11,8 +11,7 @@ function ready(){
     window.addEventListener("click",closeModal);
     document.getElementsByClassName("newReg")[0].addEventListener("click",userModal);
     document.getElementsByClassName("returning")[0].addEventListener("click",userModal);
-    // document.getElementsByClassName("popUp")[0].addEventListener("click",userModal("login"));
-    // document.getElementsByClassName("newReg")[0].addEventListener("click",userModal("newLogin"));
+
     var username = null;
     var newLogin = document.querySelector('newLogin');
     var email = document.getElementById("email");
@@ -34,6 +33,11 @@ function ready(){
             submitBtn.style.display="none";
             document.getElementsByClassName("onlineContainer")[0].style.display="none";
             document.getElementById("logout").style.display="none";
+            let logBtn=document.getElementsByClassName("returning")[0];
+            logBtn.style.display="block";
+            let signBtn = document.getElementsByClassName("newReg")[0];
+            signBtn.style.display="block";
+
         },function(error){
             console.log("error");
         })
@@ -53,6 +57,20 @@ function ready(){
         msgInput.value="";
     });
 };
+
+// function sendMsg(){
+//     let sentFrom = document.getElementById("email");
+//     var sentFrom = email.value;
+//     var sentMsg = msgInput.value;
+//     var date = new Date();
+//     var newMsgRef = fbRef.ref('messages').push();
+//     newMsgRef.set({
+//         "username":sentFrom,
+//         "date": date.toLocaleTimeString(),
+//         "message":sentMsg
+//     })
+//     msgInput.value="";
+// }
 function startListening(){
     fbRef.ref('messages').on('value',function(snap){
         //listens when the value in db changes and updates the dom
@@ -195,35 +213,43 @@ function closeModal(event){
 }
 
 function signUp(){
-    //  newLogin.addEventListener("click",function(){
-        var emails=document.getElementById("email").value;
-        var passwords=document.getElementById("password").value;
-        
-        firebase.auth().createUserWithEmailAndPassword(emails,passwords)
-            .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-        });
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                console.log('hello',user.email);
-                // After creating account, you are automatically logged in from FB and this is where magic should happen
-                username=user.email;
-                newLogin.textContent="Logged in as "+username;
-                newLogin.disabled = true;
-                submitBtn.style.display = "block";
-                msgInput.style.display = "block";
-                startListening();
-            }
-        });
-    // })
+    var emails=document.getElementById("email").value;
+    var passwords=document.getElementById("password").value;
+    
+    firebase.auth().createUserWithEmailAndPassword(emails,passwords)
+        .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.');
+        } else {
+            alert(errorMessage);
+        }
+        console.log(error);
+    });
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log('hello',user.email);
+            // After creating account, you are automatically logged in from FB and this is where magic should happen
+            username=user.email;
+            addUsersOnline(username);
+            newLogin.disabled = true;
+
+            let logBtn=document.getElementsByClassName("returning")[0];
+            logBtn.style.display="none";
+            let signBtn = document.getElementsByClassName("newReg")[0];
+            signBtn.style.display="none";
+
+            document.getElementsByClassName("onlineContainer")[0].style.display="block";
+            document.getElementsByClassName("chat")[0].style.display="block";
+
+            submitBtn.style.display = "block";
+            msgInput.style.display = "block";
+            document.getElementById("logout").style.display="block";
+            startListening();
+        }
+    });
 }
 function returningUser(){
         var emails=email.value;
@@ -247,6 +273,10 @@ function returningUser(){
                 // After creating account, you are automatically logged in from FB and this is where magic should happen
                 username=user.email;
                 addUsersOnline(username);
+                let logBtn=document.getElementsByClassName("returning")[0];
+                logBtn.style.display="none";
+                let signBtn = document.getElementsByClassName("newReg")[0];
+                signBtn.style.display="none";
 
                 document.getElementsByClassName("onlineContainer")[0].style.display="block";
                 document.getElementsByClassName("chat")[0].style.display="block";
