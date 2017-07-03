@@ -9,6 +9,7 @@ function ready(){
     document.getElementsByClassName("chat")[0].style.display="none";
     makeModal();
     window.addEventListener("click",closeModal);
+    window.addEventListener('click',closeEmojiMenu);
     document.getElementsByClassName("newReg")[0].addEventListener("click",userModal);
     document.getElementsByClassName("returning")[0].addEventListener("click",userModal);
 
@@ -56,6 +57,11 @@ function ready(){
         })
         msgInput.value="";
     });
+    let emojiExpand = document.getElementsByClassName("emo")[0];
+    emojiExpand.addEventListener("click",function(){
+        let emojiMenu=document.getElementsByClassName("emojiMenu")[0];
+        emojiMenu.style.display="block";
+    })
 };
 
 // function sendMsg(){
@@ -209,6 +215,15 @@ function closeModal(event){
     if(event.target === modal){
         modal.style.display="none";
         modal.classList.remove("show");
+    }
+}
+function closeEmojiMenu(event){
+    console.log('emoji opened',event.target);
+    let emojiMenu = document.getElementsByClassName("emojiMenu")[0];
+    let emoji=document.getElementsByClassName("emoji")[0];
+    let emojiBtn =document.getElementsByClassName("emo")[0];
+    if(emojiMenu.style.display === "block" && event.target!==emoji){
+        emojiMenu.style.display="none";
     }
 }
 
