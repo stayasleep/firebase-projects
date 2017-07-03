@@ -61,6 +61,7 @@ function ready(){
     emojiExpand.addEventListener("click",function(){
         let emojiMenu=document.getElementsByClassName("emojiMenu")[0];
         emojiMenu.style.display="block";
+        emojiMenu.className+=" opened";
     })
 };
 
@@ -222,9 +223,14 @@ function closeEmojiMenu(event){
     let emojiMenu = document.getElementsByClassName("emojiMenu")[0];
     let emoji=document.getElementsByClassName("emoji")[0];
     let emojiBtn =document.getElementsByClassName("emo")[0];
-    if(emojiMenu.style.display === "block" && event.target!==emoji){
-        emojiMenu.style.display="none";
+    if(emojiMenu.classList.contains("opened")){
+        if(event.target !== emoji){
+            emojiMenu.style.display="none";
+        }
     }
+    // if(emojiMenu.style.display === "block" && event.target!==emoji){
+    //     emojiMenu.style.display="none";
+    // }
 }
 
 function signUp(){
