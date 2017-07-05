@@ -1,6 +1,10 @@
 body{
     height: 100vh;
 }
+.btnControl{
+    flex-direction: column-reverse;
+    
+}
 
 .rightCol{
     border-left: 2px solid black;
@@ -24,12 +28,15 @@ body{
     bottom: 0;
 }
 
-.newReg{
+#message{
+    border-color: black;
+}
+.newReg, .outlineBlk{
     border-color: black;
     color: black;
     font-weight: 700;
 }
-.newReg:hover{
+.newReg:hover, .outlineBlk:hover{
     border-color: black;
     background-color: black;
 }
@@ -44,4 +51,17 @@ body{
     background: white;
     color: black;
     border-color: black;
+}
+.emojiMenu{
+    /*position: absolute;*/
+    z-index: 1000;
+    display: none;
+    border: 1px solid black;
+    background-color: #f0f0f0;
+}
+.emoji{
+    font-size: 16px;
+}
+.emoji:hover{
+    background: rgba(0,0,0,.6);
 }

@@ -18,21 +18,21 @@
         <div class="row">
             <div class="col col-sm-12">
                 <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-sm">
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="navbar-brand" href="#">Stein Chat</a>
                     <div class="collapse navbar-collapse" id="navbarColor01">
                         <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://github.com" target="_blank">View Code</a>
-                        </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Features</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com" target="_blank">View Code</a>
+                            </li>
                         </ul>
                          <form class="form-inline">
                             <button class="btn btn-outline-info" id="logout" type="button">Log Out</button>
@@ -47,14 +47,35 @@
                 </div>
             </div>
             <div class="rightCol col col-sm-9">
-                <button type="button" data-jasmine="newLogin" class="btn btn-outline-secondary newReg">Sign Up</button>
-                <button type="button" data-jasmine="login" class="btn btn-outline-secondary returning">Log In</button>
+                <div class="d-inline-flex p-2 btnControl">
+                    <button type="button" data-jasmine="newLogin" class="btn btn-outline-secondary newReg">Sign Up</button>
+                    <button type="button" data-jasmine="login" class="btn btn-outline-secondary returning">Log In</button>
+                </div>
                 <div class="chat">
                     <div id="results"></div>
-                </div>
+                </div>  
                 <div class="input-group">
+                    <div class="input-group-btn">
+                        <div class="emojiMenu">
+                            <div class="emoji smile">&#x1F642</div>
+                            <div class="emoji frown">&#x1F641</div>
+                            <div class="emoji blowKiss">&#x1F618</div>
+                            <div class="emoji eggplant">&#x1F346</div>
+                            <div class="emoji peach">&#x1F351</div>
+                        </div>
+                        <button type="button" class="emo btn btn-secondary">
+                        Action
+                        </button>
+                        <!--<div class="emojiMenu">
+                            <div class="emoji smile">&#x1F642</div>
+                            <div class="emoji frown">&#x1F641</div>
+                            <div class="emoji blowKiss">&#x1F618</div>
+                            <div class="emoji eggplant">&#x1F346</div>
+                            <div class="emoji peach">&#x1F351</div>
+                        </div>-->
+                    </div>
                     <input id="message" class="form-control" type="text" placeholder="Enter a message...">
-                    <span class="input-group-btn"><button type="button" id="submit" class="btn btn-secondary">Send</button></span>
+                    <span class="input-group-btn"><button type="button" id="submit" class="btn btn-outline-secondary outlineBlk">Send</button></span>
                 </div>
             </div>
         </div>
