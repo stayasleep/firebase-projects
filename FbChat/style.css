@@ -31,12 +31,12 @@ body{
 #message{
     border-color: black;
 }
-.newReg, .outlineBlk{
+.newReg, .outlineBlk, .emo{
     border-color: black;
     color: black;
     font-weight: 700;
 }
-.newReg:hover, .outlineBlk:hover{
+.newReg:hover, .outlineBlk:hover, .emo:hover{
     border-color: black;
     background-color: black;
 }

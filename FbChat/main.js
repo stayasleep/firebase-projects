@@ -57,11 +57,19 @@ function ready(){
         })
         msgInput.value="";
     });
-    let emojiExpand = document.getElementsByClassName("emo")[0];
-    emojiExpand.addEventListener("click",function(){
+    let emo = document.getElementsByClassName("emo")[0];
+    emo.addEventListener("click",function(){
         let emojiMenu=document.getElementsByClassName("emojiMenu")[0];
-        emojiMenu.style.display="block";
-        emojiMenu.className+=" opened";
+        let emo = document.getElementsByClassName("emo")[0];
+        if(emojiMenu.classList.contains("opened")){
+            emojiMenu.style.display="none";
+            emojiMenu.classList.remove("opened");
+            emo.classList.remove("expand");
+        }else{
+            emojiMenu.style.display="block";
+            emojiMenu.className+=" opened";
+            emo.className+=" expand";
+        }
     })
 };
 
@@ -219,14 +227,14 @@ function closeModal(event){
     }
 }
 function closeEmojiMenu(event){
-    console.log('emoji opened',event.target);
+    console.log('emoji opened',event);
     let emojiMenu = document.getElementsByClassName("emojiMenu")[0];
     let emoji=document.getElementsByClassName("emoji")[0];
-    let emojiBtn =document.getElementsByClassName("emo")[0];
-    if(emojiMenu.classList.contains("opened")){
-        if(event.target !== emoji){
+    let emo =document.getElementsByClassName("emo")[0];
+    if(emo.classList.contains("expand") && !event.target.classList.contains("emojiMenu") && !event.target.classList.contains("emoContainer") && !event.target.classList.contains("emo")){
             emojiMenu.style.display="none";
-        }
+            emojiMenu.classList.remove("opened");
+            emo.classList.remove("expand");
     }
     // if(emojiMenu.style.display === "block" && event.target!==emoji){
     //     emojiMenu.style.display="none";
