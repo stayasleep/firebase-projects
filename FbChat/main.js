@@ -7,6 +7,7 @@ function ready(){
     document.getElementById("logout").style.display="none";
     document.getElementsByClassName("onlineContainer")[0].style.display="none";
     document.getElementsByClassName("chat")[0].style.display="none";
+    // document.getElementsByClassName("input-group")[0].style.display="none";
     makeModal();
     window.addEventListener("click",closeModal);
     window.addEventListener('click',closeEmojiMenu);
@@ -21,7 +22,8 @@ function ready(){
     var logout = document.getElementById("logout");
     var msgInput = document.getElementById("message");
     var submitBtn = document.getElementById("submit");
-
+    let emo = document.getElementsByClassName("emo")[0];
+    emo.style.display="none";
     submitBtn.style.display = "none";
     msgInput.style.display = "none";
 
@@ -29,9 +31,11 @@ function ready(){
         noLongerOnline();
         firebase.auth().signOut().then(function(){
             document.getElementById("results").innerHTML="";
-            document.getElementsByClassName("chat")[0].style.display="none"
+            document.getElementsByClassName("chat")[0].style.display="none";
+            // document.getElementsByClassName("input-group")[0].style.display="none";
             msgInput.style.display ="none";
             submitBtn.style.display="none";
+            emo.style.display="none";
             document.getElementsByClassName("onlineContainer")[0].style.display="none";
             document.getElementById("logout").style.display="none";
             let logBtn=document.getElementsByClassName("returning")[0];
@@ -57,7 +61,6 @@ function ready(){
         })
         msgInput.value="";
     });
-    let emo = document.getElementsByClassName("emo")[0];
     emo.addEventListener("click",function(){
         let emojiMenu=document.getElementsByClassName("emojiMenu")[0];
         let emo = document.getElementsByClassName("emo")[0];
@@ -236,9 +239,6 @@ function closeEmojiMenu(event){
             emojiMenu.classList.remove("opened");
             emo.classList.remove("expand");
     }
-    // if(emojiMenu.style.display === "block" && event.target!==emoji){
-    //     emojiMenu.style.display="none";
-    // }
 }
 
 function signUp(){
@@ -272,9 +272,10 @@ function signUp(){
 
             document.getElementsByClassName("onlineContainer")[0].style.display="block";
             document.getElementsByClassName("chat")[0].style.display="block";
+            document.getElementsByClassName("input-group")[0].style.display="block";
 
-            submitBtn.style.display = "block";
-            msgInput.style.display = "block";
+            // submitBtn.style.display = "block";
+            // msgInput.style.display = "block";
             document.getElementById("logout").style.display="block";
             startListening();
         }
@@ -309,8 +310,10 @@ function returningUser(){
 
                 document.getElementsByClassName("onlineContainer")[0].style.display="block";
                 document.getElementsByClassName("chat")[0].style.display="block";
+                // document.getElementsByClassName("input-group")[0].style.display="block";
                 submitBtn.style.display = "block";
                 msgInput.style.display = "block";
+                document.getElementsByClassName("emo")[0].style.display="block";
                 document.getElementById("logout").style.display="block";
                 startListening();
             }
