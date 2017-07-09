@@ -74,6 +74,10 @@ function ready(){
             emo.className+=" expand";
         }
     })
+    let emojiAll = document.getElementsByClassName("emoji");
+    for (var j=0;j<emojiAll.length;j++){
+        emojiAll[j].addEventListener("click",emojiPicked);
+    }
 };
 
 // function sendMsg(){
@@ -239,6 +243,13 @@ function closeEmojiMenu(event){
             emojiMenu.classList.remove("opened");
             emo.classList.remove("expand");
     }
+}
+function emojiPicked(){
+    console.log('picked', event.target.className);
+    let emojiChosen = event.target;
+    emojiChosen=emojiChosen.textContent;
+    console.log('picked this one',emojiChosen);
+    document.getElementById("message").value+=emojiChosen;
 }
 
 function signUp(){
